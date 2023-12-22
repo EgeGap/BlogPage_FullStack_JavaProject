@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+  <head th:replace="~{/fragments/head :: head}">
+
+<body class="sub_page">
+
+  <div class="hero_area">
+    <div class="bg-box">
+      <img th:src="@{/images/nav-bg.jpg}" alt="">
+    </div>
+    <header th:replace="~{/fragments/header :: header}">
+  </div>
+
+  <section class="about_section layout_padding">
+    <div class="container">
+      <div class="post">
+        <h3><a  th:text="${post.title}">Title</a></h3>
+        <h5 th:text="'Author: '+ ${post.account.firstname} + ' | Created at: '+ ${#temporals.format(post.createdAt, 'yyyy/MM/dd-HH:mm')} +
+        ' | Updated at: '+ ${#temporals.format(post.UpdatedAt, 'yyyy/MM/dd-HH:mm')}"></h5>
+        <p th:utext="${post.body}">body</p>
+        <hr color="grey"/>
+        <div sec:authorize="isAuthenticated()" th:if="${isOwner}">
+          <a th:href="@{'/posts/' + ${post.id} + '/edit'}" class="btn btn-info" role="button"
+            aria-pressed="true">Edit</a> |
+          <a id="delete" th:href="@{'/posts/' + ${post.id} + '/delete'}" class="btn btn-danger"
+            role="button" aria-pressed="true">Delete</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer th:replace="~{/fragments/footer :: footer}">
+</body>
+
+</html>
